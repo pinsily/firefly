@@ -1,0 +1,11 @@
+# Python:
+*.py[cod]
+*.so
+*.egg
+*.egg-info
+dist
+.idea
+build
+
+dutch/migrations
+youxue/settings.py
