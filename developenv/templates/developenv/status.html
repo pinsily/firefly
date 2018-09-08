@@ -1,0 +1,66 @@
+{% extends 'developenv/base.html' %}
+
+{% block title %}status{% endblock %}
+{% block header-title %}小车状态{% endblock %}
+
+{% block content %}
+    <div class="status-title">
+        <p>小车状态</p>
+    </div>
+    <div class="status-table">
+        <table class="table table-bordered table-hover">
+            <thead class="thead">
+            <tr>
+                <th>id</th>
+                <th>status</th>
+                <th>goal</th>
+                <th>path_start</th>
+                <th>path_end</th>
+                <th>box</th>
+                <th>current</th>
+                <th>nav_status</th>
+                <th>nav_service</th>
+                <th>nav_location</th>
+            </tr>
+            </thead>
+            <tbody class="tbody">
+            <tr>
+                <td>1</td>
+                <td>良好</td>
+                <td>10</td>
+                <td>0</td>
+                <td>10</td>
+                <td>0000000000</td>
+                <td>time</td>
+                <td>0</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>良好</td>
+                <td>10</td>
+                <td>0</td>
+                <td>10</td>
+                <td>0000000000</td>
+                <td>time</td>
+                <td>0</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>良好</td>
+                <td>10</td>
+                <td>0</td>
+                <td>10</td>
+                <td>0000000000</td>
+                <td>time</td>
+                <td>0</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

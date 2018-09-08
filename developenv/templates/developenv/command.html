@@ -1,0 +1,100 @@
+{% extends 'developenv/base.html' %}
+
+{% block title %}Command{% endblock %}
+{% block header-title %}小车状态{% endblock %}
+
+{% block content %}
+    <div class="status-title">
+        <p>发送命令</p>
+    </div>
+    <div class="command-form">
+        <form action="{% url 'developenv:dev_command' %}" method="post">
+            {% csrf_token %}
+            <div class="form-group row">
+                <label for="car" class="col-3 col-form-label">选择车辆</label>
+                <div class="col-3">
+                    <select class="form-control" id="car">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                    </select>
+                </div>
+
+                <label for="A" class="col-3 col-form-label">命令 A</label>
+                <div class="col-3">
+                    <select class="form-control" id="A">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                    </select>
+                </div>
+
+                <label for="B" class="col-3 col-form-label">命令 B</label>
+                <div class="col-3">
+                    <select class="form-control" id="B">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                    </select>
+                </div>
+
+                <label for="C" class="col-3 col-form-label">命令 C</label>
+                <div class="col-3">
+                    <select class="form-control" id="C">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                    </select>
+                </div>
+            </div>
+
+
+            <div class="form-btn row text-center">
+                <div class="col-12">
+                    <button class="btn btn-primary" type="button" onclick="submitForm()">发送</button>
+                    <button class="btn btn-default" type="reset">取消</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script type="text/javascript">
+
+        function submitForm() {
+
+            var url = "{% url 'developenv:dev_command' %}";
+            var data = {
+                car: $("#car").val(),
+                car_type: $("#A").val(),
+                param_1: $("#B").val(),
+                param_2: $("#C").val(),
+            };
+
+            //console.log(data);
+            //console.log(url);
+
+            $.ajax({
+
+                url: url,
+                data: data,
+                type: 'POST',
+                dataType: 'json',
+                success: function(data){
+                    //console.log(data);
+                    alert(data['ret_message']);
+                },
+
+            });
+        }
+
+    </script>
+{% endblock %}
+

@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}basepage{% endblock %}</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Language" content="zh-CN"/>
+    <meta name="Author" content="pinsily"/>
+    <meta name="Copyright" content="pinsily.site"/>
+    <meta name="keywords" content="robot expressage"/>
+    <meta name="description" content="Firefly 开发人员专用"/>
+    <link rel="Shortcut Icon" href="{% static 'developenv/imgs/favicon.ico' %}"/>
+
+
+    <link type="text/css" rel="stylesheet" href="{% static 'developenv/css/bootstrap.min.css' %}"/> <!-- 4.1.0 -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+    <link type="text/css" rel="stylesheet" href="{% static 'developenv/css/init.css' %}"/>
+    <link type="text/css" rel="stylesheet" href="{% static 'developenv/css/style.css' %}"/>
+
+    <script type="text/javascript" src="{% static 'developenv/js/jquery.min.js' %}"></script>       <!-- 3.2.1 -->
+    <script type="text/javascript" src="{% static 'developenv/js/popper.min.js' %}"></script>       <!-- 1.12.5 -->
+    <script type="text/javascript" src="{% static 'developenv/js/bootstrap.min.js' %}"></script>    <!-- 4.1.0 -->
+
+
+</head>
+<body class="body">
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-2">
+            {% include 'developenv/slidbar.html' %}
+        </div>
+        <div class="col-9">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="header">
+                            <div class="header-title">
+                                <p>{% block header-title %}Home{% endblock %}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-12">
+                        {% block content %}
+
+                        {% endblock %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

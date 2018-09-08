@@ -1,0 +1,39 @@
+{% load static %}
+<div class="slidbar">
+
+    <div class="logo">
+        <a href="#">
+            <img src="{% static 'developenv/imgs/robot.png' %}" alt="home" class="rounded">
+        </a>
+    </div>
+
+    <div class="slidbar-nav">
+        <table class="slidbar-table">
+            <tr>
+                <th><i class="fa fa-home" aria-hidden="true"></i></th>
+                <th><span class="hidden-xs hidden-sm"><a href="{% url 'developenv:dev_index' %}">Home</a></span></th>
+            </tr>
+            <tr>
+                <th><i class="fa fa-tasks" aria-hidden="true"></i></th>
+                <th><span class="hidden-xs hidden-sm"><a href="{% url 'developenv:dev_command' %}">Command</a></span></th>
+            </tr>
+            <tr>
+                <th><i class="fa fa-bar-chart" aria-hidden="true"></i></th>
+                <th><span class="hidden-xs hidden-sm"><a href="{% url 'developenv:dev_status' %}">Status</a></span></th>
+            </tr>
+            <tr>
+                <th><i class="fa fa-user" aria-hidden="true"></i></th>
+                <th><span class="hidden-xs hidden-sm">User</span></th>
+            </tr>
+            <tr>
+                <th><i class="fa fa-calendar" aria-hidden="true"></i></th>
+                <th><span class="hidden-xs hidden-sm">Calender</span></th>
+            </tr>
+            <tr>
+                <th><i class="fa fa-cog" aria-hidden="true"></i></th>
+                <th><span class="hidden-xs hidden-sm">Setting</span></th>
+            </tr>
+        </table>
+
+    </div>
+</div>

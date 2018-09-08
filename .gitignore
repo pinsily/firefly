@@ -9,3 +9,4 @@ build
 
 developenv/migrations
 youxue/settings.py
+./static
