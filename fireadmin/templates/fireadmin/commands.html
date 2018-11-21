@@ -4,6 +4,21 @@
     <!-- Content -->
     <section id="content" class="container">
 
+        <style type="text/css">
+
+            .type-input {
+                background: rgba(0, 0, 0, 0.05);
+                border: 1px solid rgba(255, 255, 255, 0.3);
+                text-shadow: none;
+                color: #fff;
+                box-shadow: none;
+                font-family: open-sans-regular;
+                -webkit-appearance: none;
+                display: block;
+            }
+
+        </style>
+
         <!-- Breadcrumb -->
         <ol class="breadcrumb hidden-xs">
             <li><a href="#">Home</a></li>
@@ -18,32 +33,32 @@
             <h3 class="block-title">命令发送</h3>
             <div class="row">
                 <form role="form">
-                    <div class="form-group col-6">
+                    <div class="form-group col-md-6">
                         <label for="car">Car</label>
-                        <input type="text" class="form-control input-sm" id="car"
-                               placeholder="choose car">
+                        <input type="text" class="type-input input-sm" id="car"
+                               placeholder="car">
                     </div>
 
-                    <div class="form-group col-6">
+                    <div class="form-group col-md-6">
                         <label for="commandtype">command type</label>
-                        <input type="text" class="form-control input-sm" id="commandtype"
-                               placeholder="command type">
+                        <input type="text" class="type-input input-sm" id="commandtype"
+                               placeholder="type">
                     </div>
 
-                    <div class="form-group col-6">
+                    <div class="form-group col-md-6">
                         <label for="commandone">command one</label>
-                        <input type="text" class="form-control input-sm" id="commandone"
-                               placeholder="commandone">
+                        <input type="text" class="type-input input-sm" id="commandone"
+                               placeholder="one">
                     </div>
 
-                    <div class="form-group col-6">
+                    <div class="form-group col-md-6">
                         <label for="commandtwo">command two</label>
-                        <input type="text" class="form-control input-sm" id="commandtwo"
-                               placeholder="commandtwo">
+                        <input type="text" class="type-input input-sm" id="commandtwo"
+                               placeholder="two">
                     </div>
 
-                    <button type="submit" class="btn btn-sm m-t-10">Send</button>
-                    <button type="reset" class="btn btn-sm m-t-10">Cancel</button>
+                    <button type="button" class="btn btn-sm m-t-10" onclick="submitForm()">Send</button>
+                    <button type="reset" class="btn btn-sm m-t-10">Reset</button>
                 </form>
             </div>
         </div>
@@ -52,32 +67,24 @@
         <div class="block-area" id="tableStriped">
             <h3 class="block-title">命令列表</h3>
             <div class="table-responsive overflow">
-                <table class="tile table table-bordered table-striped">
+                <table class="tile table table-bordered table-striped" id="table">
                     <thead>
                     <tr>
                         <th>ID</th>
-                        <th>目的地</th>
-                        <th>起点</th>
-                        <th>终点</th>
-                        <th>储物箱</th>
-                        <th>当前时间</th>
-                        <th>导航状态</th>
-                        <th>导航服务</th>
-                        <th>导航地址</th>
+                        <th>命令类型</th>
+                        <th>参数一</th>
+                        <th>参数二</th>
+                        <th>接收情况</th>
                     </tr>
                     </thead>
-                    <tbody>
-                    {% for st in status %}
+                    <tbody id="tbody">
+                    {% for command in command_list %}
                         <tr>
-                            <td>{{ st.car_id }}</td>
-                            <td>{{ st.path_end }}</td>
-                            <td>{{ st.path_start }}</td>
-                            <td>{{ st.path_end }}</td>
-                            <td>{{ st.box }}</td>
-                            <td>{{ st.current_time }}</td>
-                            <td>{{ st.nav_status }}</td>
-                            <td>{{ st.nav_service }}</td>
-                            <td>{{ st.nav_location }}</td>
+                            <td>{{ command.id }}</td>
+                            <td>{{ command.type }}</td>
+                            <td>{{ command.param_1 }}</td>
+                            <td>{{ command.param_2 }}</td>
+                            <td>{{ command.is_accept }}</td>
                         </tr>
                     {% endfor %}
                     </tbody>
@@ -88,6 +95,53 @@
     </section>
     <br/><br/>
 
+
+    <script type="text/javascript">
+        function submitForm() {
+
+            let url = "{% url 'fireadmin:commands' %}";
+            let data = {
+                car: $("#car").val(),
+                command_type: $("#commandtype").val(),
+                param_1: $("#commandone").val(),
+                param_2: $("#commandtwo").val(),
+            };
+
+            //console.log(data);
+            //console.log(url);
+
+            $.ajax({
+
+                url: url,
+                data: data,
+                type: 'POST',
+                dataType: 'json',
+                success: function (data) {
+                    //console.log(data);
+                    alert(data['ret_message']);
+
+                    // 更新到表格中
+                    var table = $("#table");
+
+                    var row = '<tr>' +
+                                '<td>' + data["car"] + '</td>' +
+                                '<td>' + data["command_type"] + '</td>' +
+                                '<td>' + data["param_1"] + '</td>' +
+                                '<td>' + data["param_2"] + '</td>' +
+                                '<td>' + data["is_accept"] + '</td>' +
+                              '</tr>';
+
+                    table.append($(row));
+
+
+                },
+                error: function () {
+                    alert("false");
+                }
+
+            });
+        }
+    </script>
 
 {% endblock %}
 

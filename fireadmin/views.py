@@ -1,8 +1,11 @@
+from django.http import JsonResponse
 from django.shortcuts import render
 
-
 # Create your views here.
+from django.views.decorators.csrf import csrf_exempt
+
 from developenv import models
+from fireadmin import command
 
 
 def index(request):
@@ -98,5 +101,44 @@ def notfound(request):
     return render(request, 'fireadmin/404.html')
 
 
+@csrf_exempt
 def commands(request):
-    return render(request, 'fireadmin/commands.html')
+    if request.is_ajax():
+        car = request.POST['car']
+        command_type = request.POST['command_type']
+        param_1 = request.POST['param_1']
+        param_2 = request.POST['param_2']
+
+        data = {
+            "car": car,
+            "command_type": command_type,
+            "param_1": param_1,
+            "param_2": param_2,
+        }
+
+        ret_data = {
+            'ret_code': '200',
+            'ret_message': '接收成功!',
+            "car": car,
+            "command_type": command_type,
+            "param_1": param_1,
+            "param_2": param_2,
+            "is_accept": "1",
+        }
+
+        flag = command.accept_command(data)
+        if flag:
+            # 存储命令
+            models.Command.objects.create(type=command_type, param_1=param_1, param_2=param_2, is_accept="1")
+            return JsonResponse(ret_data)
+        else:
+            # 失败命令
+            models.Command.objects.create(type=command_type, param_1=param_1, param_2=param_2, is_accept="0")
+            ret_data['ret_code'] = '300'
+            ret_data['ret_message'] = '接收失败!'
+            ret_data["is_accept"] = "0"
+            return JsonResponse(ret_data)
+
+    command_list = models.Command.objects.all()
+
+    return render(request, 'fireadmin/commands.html', {"command_list": command_list})
