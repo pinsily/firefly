@@ -9,5 +9,4 @@ build
 
 developenv/migrations
 fireadmin/migrations
-youxue/settings.py
 ./static
