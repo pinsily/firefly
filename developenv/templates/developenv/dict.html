@@ -1,0 +1,46 @@
+{% extends 'developenv/base.html' %}
+
+{% block title %}status{% endblock %}
+{% block header-title %}小车状态{% endblock %}
+
+{% block content %}
+    <div class="status-title">
+        <p>字典管理</p>
+    </div>
+
+    <ul class="nav nav-pills">
+        <li class="nav-item">
+            <a class="nav-link active" href="#">新增</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link"></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" href="#">删除</a>
+        </li>
+    </ul>
+
+    <div class="status-table">
+        <table class="table table-bordered table-hover">
+            <thead class="thead">
+            <tr>
+                <th>id</th>
+                <th>参数名</th>
+                <th>参数A</th>
+                <th>参数B</th>
+                <th>参数C</th>
+            </tr>
+            </thead>
+            <tbody class="tbody">
+            {% for st in status %}
+                <tr>
+                    <td>{{ st.car_id}}</td>
+                    <td>{{ st.path_start }}</td>
+                    <td>{{ st.path_end }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}

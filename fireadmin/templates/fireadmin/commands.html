@@ -1,0 +1,94 @@
+{% extends 'fireadmin/base.html' %}
+{% load static %}
+{% block content %}
+    <!-- Content -->
+    <section id="content" class="container">
+
+        <!-- Breadcrumb -->
+        <ol class="breadcrumb hidden-xs">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Library</a></li>
+            <li class="active">Data</li>
+        </ol>
+
+        <h4 class="page-title">Commands</h4>
+
+        <!--命令发送-->
+        <div class="block-area" id="tableStriped">
+            <h3 class="block-title">命令发送</h3>
+            <div class="row">
+                <form role="form">
+                    <div class="form-group col-6">
+                        <label for="car">Car</label>
+                        <input type="text" class="form-control input-sm" id="car"
+                               placeholder="choose car">
+                    </div>
+
+                    <div class="form-group col-6">
+                        <label for="commandtype">command type</label>
+                        <input type="text" class="form-control input-sm" id="commandtype"
+                               placeholder="command type">
+                    </div>
+
+                    <div class="form-group col-6">
+                        <label for="commandone">command one</label>
+                        <input type="text" class="form-control input-sm" id="commandone"
+                               placeholder="commandone">
+                    </div>
+
+                    <div class="form-group col-6">
+                        <label for="commandtwo">command two</label>
+                        <input type="text" class="form-control input-sm" id="commandtwo"
+                               placeholder="commandtwo">
+                    </div>
+
+                    <button type="submit" class="btn btn-sm m-t-10">Send</button>
+                    <button type="reset" class="btn btn-sm m-t-10">Cancel</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- 命令列表 -->
+        <div class="block-area" id="tableStriped">
+            <h3 class="block-title">命令列表</h3>
+            <div class="table-responsive overflow">
+                <table class="tile table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>目的地</th>
+                        <th>起点</th>
+                        <th>终点</th>
+                        <th>储物箱</th>
+                        <th>当前时间</th>
+                        <th>导航状态</th>
+                        <th>导航服务</th>
+                        <th>导航地址</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for st in status %}
+                        <tr>
+                            <td>{{ st.car_id }}</td>
+                            <td>{{ st.path_end }}</td>
+                            <td>{{ st.path_start }}</td>
+                            <td>{{ st.path_end }}</td>
+                            <td>{{ st.box }}</td>
+                            <td>{{ st.current_time }}</td>
+                            <td>{{ st.nav_status }}</td>
+                            <td>{{ st.nav_service }}</td>
+                            <td>{{ st.nav_location }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </section>
+    <br/><br/>
+
+
+{% endblock %}
+
+

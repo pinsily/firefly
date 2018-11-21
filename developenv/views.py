@@ -1,5 +1,6 @@
 from django.http import JsonResponse
 from django.shortcuts import render
+from django.db import connection
 
 from developenv import models
 from . import command
@@ -13,7 +14,22 @@ def index(request):
 
 
 def car_status(request):
-    return render(request, 'developenv/status.html')
+    """
+    cursor = connection.cursor()
+    sql = "select * from carstatus"
+
+    cursor.execute(sql)
+    desc = cursor.description
+    status = [
+        dict(zip([col[0] for col in desc], row))
+        for row in cursor.fetchall()
+    ]
+    cursor.close()
+    print(status)
+    """
+
+    status = models.carStatus.objects.all()
+    return render(request, 'developenv/status.html', {"status": status})
 
 
 @csrf_exempt
@@ -46,3 +62,7 @@ def car_command(request):
             return JsonResponse(ret_data)
 
     return render(request, 'developenv/command.html')
+
+
+def dicts(request):
+    return render(request, "developenv/dict.html")
